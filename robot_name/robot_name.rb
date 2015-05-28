@@ -7,13 +7,13 @@ class Robot
   def initialize(args = {})
     @name = ""
     generate_name
-    @name = args[:name_generator].call unless !args[:name_generator]
+    @name = args[:name_generator].call if args[:name_generator]
     name_structured_corectly?
   end
 
   def generate_name
-    generated_chars = 2.times { @name << ('A'..'Z').to_a.sample }
-    generate_num = 3.times { @name << ('0'..'9').to_a.sample }
+    2.times { @name << ('A'..'Z').to_a.sample }
+    3.times { @name << ('0'..'9').to_a.sample }
     @name
   end
 
@@ -26,12 +26,10 @@ class Robot
 end
 
 class RobotDirectory
+  attr_reader :directory
+
   def initialize
     @directory = []
-  end
-
-  def directory
-    @directory
   end
 
   def register(robot)
